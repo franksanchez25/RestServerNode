@@ -1,5 +1,7 @@
 const { Router } = require ('express');
 const { check } = require ('express-validator');
+
+const {isAdminRole, haveRole, validateToken} = require('../middleware')
 const {getUser,
     postUser, 
     deleteUser, 
@@ -31,6 +33,9 @@ const router = Router();
             ], postUser)
 
             router.delete('/:id', [
+                validateToken,
+                // isAdminRole,
+                haveRole('ADMIN_ROLE','SALES_ROLE'),
                  check('id', 'Invalid ID').isMongoId(),
                  check('id').custom( existUserById ),
                  validateField

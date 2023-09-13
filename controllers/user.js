@@ -72,24 +72,19 @@ const putUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
 
+    
     const { id } = req.params;
+    const disableUser = await User.findByIdAndUpdate(id, {state: false});
 
-
-    //delete fisicamente
-
-        // const userDeletedID = await User.findByIdAndDelete( id );
-
-        const disableUser = await User.findByIdAndUpdate(id, {state: false});
 
         res.json({
-            // id
             disableUser
         })
         
 }
 const patchUser = (req, res = response)=> {
     res.json({
-        msg: 'Get Response from api - controlled'
+        msg: 'Get Response from api - controlled',
         })
 }
 
